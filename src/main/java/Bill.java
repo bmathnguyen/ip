@@ -94,6 +94,25 @@ public class Bill {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + tasks[count - 1]);
                     System.out.println("Now you have " + count + " tasks in the list.");
+                } else if (input.startsWith("delete ")) {
+                    String rest = input.substring(7);
+                    if (!isPositiveInteger(rest)) {
+                        throw new BillException("Please give me a valid task number after 'delete'.");
+                    }
+                    int idx = Integer.parseInt(rest);
+                    if (idx < 1 || idx > count) {
+                        throw new BillException("That task number doesn’t exist yet.");
+                    }
+
+                    Task removed = tasks[idx - 1];
+                    for (int i = idx; i < count; i++) {
+                        tasks[i - 1] = tasks[i];
+                    }
+                    tasks[--count] = null;
+
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + removed);
+                    System.out.println("Now you have " + count + " tasks in the list.");
                 } else {
                     throw new BillException("Sorry, I don't understand that command.");
                 }
