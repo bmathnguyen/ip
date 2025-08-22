@@ -8,6 +8,7 @@ public class Bill {
             if (!Character.isDigit(s.charAt(i))) return false;
         }
         // reject "0" as a valid index
+        // edge case?
         return Integer.parseInt(s) > 0;
     }
 
@@ -59,8 +60,33 @@ public class Bill {
                     tasks[count++] = new Task(input);
                     System.out.println(" added: " + input);
                 }
-            }
-            else {
+            } else if (input.startsWith("todo ")) {
+                String desc = input.substring(5);
+                tasks[count++] = new Todo(desc);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[count - 1]);
+                System.out.println("Now you have " + count + " tasks in the list.");
+            } else if (input.startsWith("deadline ")) {
+                String body = input.substring(9);
+                int byPos = body.indexOf("/by");
+                String desc = body.substring(0, byPos);
+                String by = body.substring(byPos + 3);
+                tasks[count++] = new Deadline(desc, by);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[count - 1]);
+                System.out.println("Now you have " + count + " tasks in the list.");
+            } else if (input.startsWith("event ")) {
+                String body = input.substring(6);
+                int fromPos = body.indexOf("/from");
+                int toPos = body.indexOf("/to");
+                String desc = body.substring(0, fromPos);
+                String from = body.substring(fromPos + 5, toPos);
+                String to = body.substring(toPos + 3);
+                tasks[count++] = new Event(desc, from, to);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[count - 1]);
+                System.out.println("Now you have " + count + " tasks in the list.");
+            } else {
                 tasks[count++] = new Task(input);
                 System.out.println("added: " + input);
             }
