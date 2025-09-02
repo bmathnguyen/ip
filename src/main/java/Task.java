@@ -7,6 +7,14 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public void mark() {
         this.isDone = true;
     }
@@ -22,5 +30,9 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String toFileFormat() {
+        return (isDone ? "1" : "0") + " | " + description;
     }
 }

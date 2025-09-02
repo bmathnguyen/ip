@@ -28,13 +28,13 @@ Now you have 4 tasks in the list.
 3. [T][ ] join sports club
 4. [T][ ] borrow book
 Nice! I've marked this task as done:
-   [D][X] return book (by: June 6th)
+  [D][X] return book (by: June 6th)
 1. [T][ ] read book
 2. [D][X] return book (by: June 6th)
 3. [T][ ] join sports club
 4. [T][ ] borrow book
 OK, I've marked this task as not done yet:
-   [D][ ] return book (by: June 6th)
+  [D][ ] return book (by: June 6th)
 1. [T][ ] read book
 2. [D][ ] return book (by: June 6th)
 3. [T][ ] join sports club
