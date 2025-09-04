@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -90,36 +93,47 @@ public class Bill {
                     String body = input.substring(9);
                     int byPos = body.indexOf("/by");
                     if (byPos == -1) {
-                        throw new BillException("Use: deadline <description> /by <when>");
+                        throw new BillException("Use: deadline <description> /by yyyy-MM-dd HHmm");
                     }
-                    String desc = body.substring(0, byPos);
-                    String by = body.substring(byPos + 3);
-                    if (desc.isEmpty() || by.isEmpty()) {
-                        throw new BillException("Deadline needs both description and /by time.");
+                    String desc = body.substring(0, byPos).trim();
+                    String byString = body.substring(byPos + 4).trim();
+                    if (desc.isEmpty() || byString.isEmpty()) {
+                        throw new BillException("Deadline needs both a description and a time.");
                     }
-                    tasks.add(new Deadline(desc, by));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks.get(tasks.size()-1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    saveTasks();
+                    try {
+                        LocalDateTime by = LocalDateTime.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        tasks.add(new Deadline(desc, by));
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        saveTasks();
+                    } catch (DateTimeParseException e) {
+                        throw new BillException("Invalid date format! Please use yyyy-MM-dd HHmm");
+                    }
                 } else if (input.startsWith("event ")) {
                     String body = input.substring(6);
                     int fromPos = body.indexOf("/from");
                     int toPos = body.indexOf("/to");
                     if (fromPos == -1 || toPos == -1 || toPos < fromPos) {
-                        throw new BillException("Use: event <description> /from <start> /to <end>");
+                        throw new BillException("Use: event <desc> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
                     }
-                    String desc = body.substring(0, fromPos);
-                    String from = body.substring(fromPos + 5, toPos);
-                    String to = body.substring(toPos + 3);
-                    if (desc.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                        throw new BillException("Event needs description, /from, and /to.");
+                    String desc = body.substring(0, fromPos).trim();
+                    String fromString = body.substring(fromPos + 6, toPos).trim();
+                    String toString = body.substring(toPos + 4).trim();
+                    if (desc.isEmpty() || fromString.isEmpty() || toString.isEmpty()) {
+                        throw new BillException("Event needs a description, a from-time, and a to-time.");
                     }
-                    tasks.add(new Event(desc, from, to)); // Use tasks.add()
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks.get(tasks.size()-1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    saveTasks();
+                    try {
+                        LocalDateTime from = LocalDateTime.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        LocalDateTime to = LocalDateTime.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                        tasks.add(new Event(desc, from, to));
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        saveTasks();
+                    } catch (DateTimeParseException e) {
+                        throw new BillException("Invalid date format! Please use yyyy-MM-dd HHmm");
+                    }
                 } else if (input.startsWith("delete ")) {
                     String rest = input.substring(7);
                     if (!isPositiveInteger(rest)) {
