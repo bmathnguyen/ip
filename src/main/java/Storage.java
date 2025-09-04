@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -33,10 +34,10 @@ public class Storage {
                     task = new Todo(parts[2]);
                     break;
                 case "D":
-                    task = new Deadline(parts[2], parts[3]);
+                    task = new Deadline(parts[2], LocalDateTime.parse(parts[3]));
                     break;
                 case "E":
-                    task = new Event(parts[2], parts[3], parts[4]);
+                    task = new Event(parts[2], LocalDateTime.parse(parts[3]), LocalDateTime.parse(parts[4]));
                     break;
             }
             if (task != null) {
