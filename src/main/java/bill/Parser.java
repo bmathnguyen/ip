@@ -25,86 +25,86 @@ public class Parser {
         } else if (input.equals("list")) {
             ui.printTaskList(tasks.getTasks());
         } else if (input.startsWith("mark ")) {
-            String rest = input.substring(5).trim();
-            if (!isPositiveInteger(rest)) {
+            String commandArgs = input.substring(5).trim();
+            if (!isPositiveInteger(commandArgs)) {
                 throw new BillException("This is not a valid task number.");
             }
-            int idx = Integer.parseInt(rest);
-            if (idx <= 0 || idx > tasks.getSize()) {
+            int taskIndex = Integer.parseInt(commandArgs);
+            if (taskIndex <= 0 || taskIndex > tasks.getSize()) {
                 throw new BillException("This is not a valid task number.");
             }
-            tasks.markTask(idx - 1);
-            ui.showTaskMarked(tasks.getTask(idx - 1));
+            tasks.markTask(taskIndex - 1);
+            ui.showTaskMarked(tasks.getTask(taskIndex - 1));
         } else if (input.startsWith("unmark ")) {
-            String rest = input.substring(7).trim();
-            if (!isPositiveInteger(rest)) {
+            String commandArgs = input.substring(7).trim();
+            if (!isPositiveInteger(commandArgs)) {
                 throw new BillException("This is not a valid task number.");
             }
-            int idx = Integer.parseInt(rest);
-            if (idx <= 0 || idx > tasks.getSize()) {
+            int taskIndex = Integer.parseInt(commandArgs);
+            if (taskIndex <= 0 || taskIndex > tasks.getSize()) {
                 throw new BillException("That task number doesn’t exist yet.");
             }
-            tasks.unmarkTask(idx - 1);
-            ui.showTaskUnmarked(tasks.getTask(idx - 1));
+            tasks.unmarkTask(taskIndex - 1);
+            ui.showTaskUnmarked(tasks.getTask(taskIndex - 1));
         } else if (input.startsWith("todo ")) {
-            String desc = input.substring(5).trim();
-            if (desc.isEmpty()) {
-                throw new BillException("The description of a todo cannot be empty.");
+            String description = input.substring(5).trim();
+            if (description.isEmpty()) {
+                throw new BillException("The descriptionription of a todo cannot be empty.");
             }
-            Todo newTodo = new Todo(desc);
+            Todo newTodo = new Todo(description);
             tasks.addTask(newTodo);
             ui.showTaskAdded(newTodo, tasks.getSize());
         } else if (input.startsWith("deadline ")) {
-            String body = input.substring(9).trim();
-            int byPos = body.indexOf("/by");
+            String commandBody = input.substring(9).trim();
+            int byPos = commandBody.indexOf("/by");
             if (byPos == -1) {
-                throw new BillException("Use: deadline <description> /by yyyy-MM-dd HHmm");
+                throw new BillException("Use: deadline <descriptionription> /by yyyy-MM-dd HHmm");
             }
-            String desc = body.substring(0, byPos).trim();
-            String byString = body.substring(byPos + 3).trim();
-            if (desc.isEmpty() || byString.isEmpty()) {
-                throw new BillException("Deadline needs both a description and a time.");
+            String description = commandBody.substring(0, byPos).trim();
+            String byString = commandBody.substring(byPos + 3).trim();
+            if (description.isEmpty() || byString.isEmpty()) {
+                throw new BillException("Deadline needs both a descriptionription and a time.");
             }
             try {
                 LocalDateTime by = LocalDateTime.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                Deadline newDeadline = new Deadline(desc, by);
+                Deadline newDeadline = new Deadline(description, by);
                 tasks.addTask(newDeadline);
                 ui.showTaskAdded(newDeadline, tasks.getSize());
             } catch (DateTimeParseException e) {
                 throw new BillException("Invalid date format! Please use yyyy-MM-dd HHmm");
             }
         } else if (input.startsWith("event ")) {
-            String body = input.substring(6).trim();
-            int fromPos = body.indexOf("/from");
-            int toPos = body.indexOf("/to");
+            String commandBody = input.substring(6).trim();
+            int fromPos = commandBody.indexOf("/from");
+            int toPos = commandBody.indexOf("/to");
             if (fromPos == -1 || toPos == -1 || toPos < fromPos) {
-                throw new BillException("Use: event <desc> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
+                throw new BillException("Use: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
             }
-            String desc = body.substring(0, fromPos).trim();
-            String fromString = body.substring(fromPos + 5, toPos).trim();
-            String toString = body.substring(toPos + 3).trim();
-            if (desc.isEmpty() || fromString.isEmpty() || toString.isEmpty()) {
-                throw new BillException("Event needs a description, a from-time, and a to-time.");
+            String description = commandBody.substring(0, fromPos).trim();
+            String fromString = commandBody.substring(fromPos + 5, toPos).trim();
+            String toString = commandBody.substring(toPos + 3).trim();
+            if (description.isEmpty() || fromString.isEmpty() || toString.isEmpty()) {
+                throw new BillException("Event needs a descriptionription, a from-time, and a to-time.");
             }
             try {
                 LocalDateTime from = LocalDateTime.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                 LocalDateTime to = LocalDateTime.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                Event newEvent = new Event(desc, from, to);
+                Event newEvent = new Event(description, from, to);
                 tasks.addTask(newEvent);
                 ui.showTaskAdded(newEvent, tasks.getSize());
             } catch (DateTimeParseException e) {
                 throw new BillException("Invalid date format! Please use yyyy-MM-dd HHmm");
             }
         } else if (input.startsWith("delete ")) {
-            String rest = input.substring(7).trim();
-            if (!isPositiveInteger(rest)) {
+            String commandArgs = input.substring(7).trim();
+            if (!isPositiveInteger(commandArgs)) {
                 throw new BillException("This is not a valid task number.");
             }
-            int idx = Integer.parseInt(rest);
-            if (idx <= 0 || idx > tasks.getSize()) {
+            int taskIndex = Integer.parseInt(commandArgs);
+            if (taskIndex <= 0 || taskIndex > tasks.getSize()) {
                 throw new BillException("This is not a valid task number.");
             }
-            Task removed = tasks.deleteTask(idx - 1);
+            Task removed = tasks.deleteTask(taskIndex - 1);
             ui.showTaskDeleted(removed, tasks.getSize());
         } else {
             throw new BillException("Sorry, I don't understand that command.");
