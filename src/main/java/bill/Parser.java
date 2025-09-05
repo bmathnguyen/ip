@@ -3,6 +3,7 @@ package bill;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Parses user input and executes the corresponding command.
@@ -125,6 +126,10 @@ public class Parser {
             }
             Task removed = tasks.deleteTask(taskIndex - 1);
             ui.showTaskDeleted(removed, tasks.getSize());
+        } else if (input.startsWith("find ")) {
+            String keyword = input.substring(5).trim();
+            ArrayList<Task> matchingTasks = tasks.findTasks(keyword);
+            ui.showFoundTasks(matchingTasks);
         } else {
             throw new BillException("Sorry, I don't understand that command.");
         }
