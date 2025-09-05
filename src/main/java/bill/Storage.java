@@ -49,21 +49,21 @@ public class Storage {
         Scanner s = new Scanner(this.file);
         while (s.hasNext()) {
             String line = s.nextLine();
-            String[] parts = line.split(" \\| ");
+            String[] taskParts = line.split(" \\| ");
             Task task = null;
-            switch (parts[0]) {
+            switch (taskParts[0]) {
                 case "T":
-                    task = new Todo(parts[2]);
+                    task = new Todo(taskParts[2]);
                     break;
                 case "D":
-                    task = new Deadline(parts[2], LocalDateTime.parse(parts[3]));
+                    task = new Deadline(taskParts[2], LocalDateTime.parse(taskParts[3]));
                     break;
                 case "E":
-                    task = new Event(parts[2], LocalDateTime.parse(parts[3]), LocalDateTime.parse(parts[4]));
+                    task = new Event(taskParts[2], LocalDateTime.parse(taskParts[3]), LocalDateTime.parse(taskParts[4]));
                     break;
             }
             if (task != null) {
-                if (parts[1].equals("1")) {
+                if (taskParts[1].equals("1")) {
                     task.mark();
                 }
                 tasks.add(task);
