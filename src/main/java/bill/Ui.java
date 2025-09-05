@@ -54,4 +54,16 @@ public class Ui {
         System.out.println("  " + task);
         System.out.println("Now you have " + newSize + " tasks in the list.");
     }
+
+    /**
+     * Prints the list of tasks found by a search.
+     *
+     * @param matchingTasks The list of tasks that matched the search keyword.
+     */
+    public void showFoundTasks(ArrayList<Task> matchingTasks) {
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+        }
+    }
 }
