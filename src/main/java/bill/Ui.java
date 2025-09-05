@@ -1,3 +1,5 @@
+package bill;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,7 +15,7 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println("Hello! I'm Bill");
+        System.out.println("Hello! I'm bill.Bill");
         System.out.println("What can I do for you?");
     }
 

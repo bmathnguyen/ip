@@ -1,4 +1,4 @@
-# Bill User Guide
+# bill.Bill User Guide
 
 // Update the title above to match the actual product name
 
