@@ -1,20 +1,34 @@
 package bill;
 
-import java.time.LocalDateTime;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading tasks from and saving tasks to a file.
+ */
 public class Storage {
     private final File file;
 
+    /**
+     * Constructs a Storage instance.
+     *
+     * @param filePath The path to the file used for storage.
+     */
     public Storage(String filePath) {
         this.file = new File(filePath);
     }
 
+    /**
+     * Saves the current list of tasks to the file, overwriting its content.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         this.file.getParentFile().mkdirs();
         FileWriter fw = new FileWriter(this.file);
@@ -24,6 +38,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads tasks from the file. Each line in the file is parsed to re-create the task objects.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws FileNotFoundException If the file does not exist.
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner s = new Scanner(this.file);

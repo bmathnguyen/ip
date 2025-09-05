@@ -4,8 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and executes the corresponding command.
+ */
 public class Parser {
 
+    /**
+     * Checks if the given string represents a positive integer.
+     * This helper method is used to validate task numbers from user input.
+     *
+     * @param s The string to be checked.
+     * @return true if the string is a positive integer (e.g., "1", "25"), false otherwise.
+     */
     private static boolean isPositiveInteger(String s) {
         if (s == null || s.isEmpty()) {
             return false;
@@ -18,6 +28,15 @@ public class Parser {
         return Integer.parseInt(s) > 0;
     }
 
+    /**
+     * Parses the full user command and executes it.
+     *
+     * @param input The full command string entered by the user.
+     * @param ui The Ui instance for user interaction.
+     * @param tasks The TaskList instance to be modified.
+     * @return true if the command is an exit command, false otherwise.
+     * @throws BillException if the command is invalid or has incorrect parameters.
+     */
     public static boolean parse(String input, Ui ui, TaskList tasks) throws BillException {
         if (input.equals("bye")) {
             ui.showGoodbye();
