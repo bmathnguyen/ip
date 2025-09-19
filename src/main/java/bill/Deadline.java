@@ -4,12 +4,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private LocalDateTime by; // Removed 'final' to allow modification
 
     public Deadline(String description, LocalDateTime by) {
         super(description);
         assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
         assert by != null : "Deadline time 'by' cannot be null";
+        this.by = by;
+    }
+
+    /**
+     * Updates the deadline's due date.
+     *
+     * @param by The new due date and time.
+     */
+    public void setBy(LocalDateTime by) {
+        assert by != null : "New deadline time 'by' cannot be null";
         this.by = by;
     }
 
