@@ -23,6 +23,7 @@ public class Bill {
      * @param filePath The path to the file where tasks are saved.
      */
     public Bill(String filePath) {
+        // Add Assertion
         assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         this.ui = new Ui();
         this.storage = new Storage(filePath);
