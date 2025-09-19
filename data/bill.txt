@@ -1,6 +1,4 @@
-D | 1 | project submission | 2025-09-05T18:00
 D | 0 | project submission | 2025-09-05T18:00
-E | 0 | team meeting | 2025-09-10T14:00 | 2025-09-10T16:00
 T | 0 | submit report
 T | 0 | submit report
 D | 0 | project submission | 2025-09-05T18:00
@@ -12,3 +10,5 @@ T | 0 | submit report
 D | 0 | CS2103T Week 4 | 2025-09-05T18:00
 T | 1 | submit GITHUB CS2103
 T | 0 | CS2100 assignment 1
+T | 0 | CS2103T Tutorial
+T | 0 | CS2103T Week 6
