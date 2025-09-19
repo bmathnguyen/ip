@@ -23,6 +23,7 @@ public class Bill {
      * @param filePath The path to the file where tasks are saved.
      */
     public Bill(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
@@ -30,6 +31,9 @@ public class Bill {
         } catch (IOException e) {
             this.tasks = new TaskList(new ArrayList<>());
         }
+        assert this.ui != null;
+        assert this.storage != null;
+        assert this.tasks != null;
     }
 
 
@@ -60,6 +64,7 @@ public class Bill {
      * @return The chatbot's response as a String.
      */
     public String getResponse(String input) {
+        assert tasks != null : "Task list must be initialized";
         try {
             if (input.equals("bye")) {
                 return "Bye. Hope to see you again soon!";

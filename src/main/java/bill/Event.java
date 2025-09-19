@@ -8,6 +8,9 @@ public class Event extends Task {
     private final LocalDateTime to;
 
     public Event(String description, LocalDateTime from, LocalDateTime to) {
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        assert from != null : "Event 'from' time cannot be null";
+        assert to != null : "Event 'to' time cannot be null";
         super(description);
         this.from = from;
         this.to = to;
