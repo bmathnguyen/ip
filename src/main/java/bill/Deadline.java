@@ -7,9 +7,9 @@ public class Deadline extends Task {
     private final LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by) {
+        super(description);
         assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
         assert by != null : "Deadline time 'by' cannot be null";
-        super(description);
         this.by = by;
     }
 
