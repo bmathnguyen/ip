@@ -1,26 +1,35 @@
-# bill.Bill project template
+# Bill Chatbot Project
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to the Bill Chatbot project! This document provides instructions on how to set up and run the application using IntelliJ IDEA.
 
-## Setting up in Intellij
+## Prerequisites
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+1.  **Java JDK 17:** Ensure you have JDK version 17 installed.
+2.  **IntelliJ IDEA:** Use a recent version of IntelliJ IDEA.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/bill.Bill.java` file, right-click it, and choose `Run bill.Bill.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Setup Instructions
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+### 1. Open the Project
+* Launch IntelliJ IDEA.
+* If you have another project open, close it via `File` -> `Close Project`.
+* From the welcome screen, click **`Open`**.
+* Navigate to and select the project's root folder, then click **`OK`**.
+* If prompted, trust the project and accept any default settings.
+
+### 2. Configure the JDK
+* Go to `File` -> `Project Structure...`.
+* Under **Project Settings**, select **`Project`**.
+* Set the **SDK** to your installed **JDK 17**. If it's not listed, you can add it.
+* Set the **Language level** to **`SDK default`**.
+* Click **`OK`** to save the changes.
+
+### 3. Run the Application
+* Wait for IntelliJ to index the project files.
+* In the Project Explorer, navigate to `src/main/java/bill/Launcher.java`.
+* Right-click on the `Launcher.java` file.
+* Select **`Run 'Launcher.main()'`**.
+
+If the setup is successful, the Bill chatbot's graphical user interface (GUI) window will appear.
+
+> [!NOTE]
+> The default location for all source code is the `src/main/java` folder. It's recommended to keep your `.java` files here as this is the standard directory structure used by Gradle.

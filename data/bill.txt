@@ -2,3 +2,4 @@ T | 1 | CS2105
 D | 1 | CS2103T iP | 2025-09-21T16:00
 E | 0 | recess week | 2025-09-20T00:00 | 2025-09-27T00:00
 T | 0 | CS2103T tP
+T | 1 | CS2102 Database
