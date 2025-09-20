@@ -3,10 +3,20 @@ package bill;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a start and end time.
+ */
 public class Event extends Task {
-    private LocalDateTime from; // Removed 'final'
-    private LocalDateTime to;   // Removed 'final'
+    private LocalDateTime from;
+    private LocalDateTime to;
 
+    /**
+     * Constructs a new Event task.
+     *
+     * @param description The event's description.
+     * @param from The start date and time.
+     * @param to The end date and time.
+     */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
@@ -36,6 +46,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Returns the string representation of the event.
+     *
+     * @return A formatted string for display.
+     */
     @Override
     public String toString() {
         String formattedFrom = from.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a"));
@@ -43,6 +58,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 
+    /**
+     * Returns the string representation for file storage.
+     *
+     * @return A pipe-separated string for saving.
+     */
     @Override
     public String toFileFormat() {
         return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + this.from + " | " + this.to;

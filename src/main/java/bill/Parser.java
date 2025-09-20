@@ -5,8 +5,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * A utility class that parses user input and executes commands.
+ */
 public class Parser {
 
+    /**
+     * Checks if a string is a positive integer.
+     *
+     * @param s The string to check.
+     * @return True if s is a positive integer, false otherwise.
+     */
     private static boolean isPositiveInteger(String s) {
         if (s == null || s.isEmpty()) {
             return false;
@@ -23,7 +32,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses and executes a user command.
+     *
+     * @param input The full command string from the user.
+     * @param tasks The TaskList to operate on.
+     * @return A string result for display.
+     * @throws BillException If the command is invalid.
+     */
     public static String parse(String input, TaskList tasks) throws BillException {
+        // ... (rest of the method code is unchanged)
         if (input.equals("bye")) {
             return "Bye. Hope to see you again soon!";
 
