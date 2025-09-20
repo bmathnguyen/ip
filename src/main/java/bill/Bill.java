@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * It coordinates the user interface, storage, and task list.
  */
 public class Bill {
-
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
