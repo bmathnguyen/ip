@@ -24,9 +24,10 @@ public class Bill {
             String response = Parser.parse(input, tasks);
 
             String commandWord = input.split(" ")[0].trim().toLowerCase();
+            // Save the task list if a command modified it.
             if (commandWord.equals("mark") || commandWord.equals("unmark") || commandWord.equals("todo")
                     || commandWord.equals("deadline") || commandWord.equals("event")
-                    || commandWord.equals("delete")) {
+                    || commandWord.equals("delete") || commandWord.equals("snooze")) {
                 storage.save(tasks.getTasks());
             }
             return response;

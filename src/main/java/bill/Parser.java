@@ -142,6 +142,62 @@ public class Parser {
             }
             return sb.toString().trim();
 
+        } else if (input.startsWith("snooze ")) {
+            String commandBody = input.substring(7).trim();
+            int firstSpaceIndex = commandBody.indexOf(' ');
+            if (firstSpaceIndex == -1) {
+                throw new BillException("Invalid snooze format. Use: snooze <index> /by or /from ...");
+            }
+
+            String taskIndexStr = commandBody.substring(0, firstSpaceIndex);
+            if (!isPositiveInteger(taskIndexStr)) {
+                throw new BillException("This is not a valid task number.");
+            }
+            int taskIndex = Integer.parseInt(taskIndexStr);
+            if (taskIndex <= 0 || taskIndex > tasks.getSize()) {
+                throw new BillException("This task number does not exist.");
+            }
+
+            Task taskToSnooze = tasks.getTask(taskIndex - 1);
+            String snoozeDetails = commandBody.substring(firstSpaceIndex).trim();
+
+            if (taskToSnooze instanceof Deadline) {
+                int byPos = snoozeDetails.indexOf("/by");
+                if (byPos == -1) {
+                    throw new BillException("For deadlines, use: snooze <index> /by yyyy-MM-dd HHmm");
+                }
+                String byString = snoozeDetails.substring(byPos + 3).trim();
+                try {
+                    LocalDateTime newBy = LocalDateTime.parse(byString,
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    ((Deadline) taskToSnooze).setBy(newBy);
+                    return "OK! I've snoozed this deadline:\n  " + taskToSnooze;
+                } catch (DateTimeParseException e) {
+                    throw new BillException("Invalid date format! Please use yyyy-MM-dd HHmm");
+                }
+            } else if (taskToSnooze instanceof Event) {
+                int fromPos = snoozeDetails.indexOf("/from");
+                int toPos = snoozeDetails.indexOf("/to");
+                if (fromPos == -1 || toPos == -1 || toPos < fromPos) {
+                    throw new BillException(
+                            "For events, use: snooze <index> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
+                }
+                String fromString = snoozeDetails.substring(fromPos + 5, toPos).trim();
+                String toString = snoozeDetails.substring(toPos + 3).trim();
+                try {
+                    LocalDateTime newFrom = LocalDateTime.parse(fromString,
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    LocalDateTime newTo = LocalDateTime.parse(toString,
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                    ((Event) taskToSnooze).setFrom(newFrom);
+                    ((Event) taskToSnooze).setTo(newTo);
+                    return "OK! I've rescheduled this event:\n  " + taskToSnooze;
+                } catch (DateTimeParseException e) {
+                    throw new BillException("Invalid date format! Please use yyyy-MM-dd HHmm");
+                }
+            } else {
+                throw new BillException("Only deadlines and events can be snoozed.");
+            }
         } else {
             throw new BillException("Sorry, I don't understand that command.");
         }
